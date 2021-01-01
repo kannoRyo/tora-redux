@@ -1,7 +1,15 @@
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import logo from './logo.svg';
 import './App.css';
+import { signInAction } from './reducks/users/actions';
 
-function App() {
+const  App = ()=> {
+  const dispatch = useDispatch()
+  const selector = useSelector((state)=> state)
+
+  console.log(selector.users)
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +25,9 @@ function App() {
         >
           Learn React
         </a>
+        <button onClick={()=> dispatch(signInAction({uid:'00001',username:'jimboo'}))} >
+          Sign In
+        </button>
       </header>
     </div>
   );

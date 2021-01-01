@@ -1,12 +1,7 @@
-const initialState = {
-    productsL:{
-
-    },
+export const initialState = {
     users:{
         isSignIn: false,
         uid: "",
-        username: ""
+        username: "",
     }
 }
-
-export default initialState

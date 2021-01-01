@@ -1,11 +1,18 @@
-imoport * as Actions from './actions'
-import initialState from '../store/initialState'
+import * as Actions from './actions'
+import {initialState} from '../store/initialState'
 
-export const UsersReducer = (state = initialState, action)=>{
+
+export const UserReducers = (state = initialState.users, action)=>{
+
     switch(action.type){
-        case Actions.SING_IN:
-            break;
+        case Actions.SIGN_IN:
+            return{
+                ...state,
+                ...action.payload
+            }
+        case Actions.SIGN_OUT:
+            return state    
         default:
-            break
+            return state
     }
 }
