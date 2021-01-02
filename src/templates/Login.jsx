@@ -1,6 +1,6 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {SignIn} from '../reducks/users/operations'
+import {signIn} from '../reducks/users/operations'
 
 const Login = ()=>{
     const dispatch = useDispatch()
@@ -8,7 +8,7 @@ const Login = ()=>{
     return(
         <div>
             <h2>ログイン</h2>
-            <button　onClick={()=> dispatch(SignIn()) }>
+            <button　onClick={()=> dispatch(signIn()) }>
                 ログインする
             </button>
         </div>

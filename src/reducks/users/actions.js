@@ -6,6 +6,7 @@ export const signInAction = (uesrState)=>{
         type:"SIGN_IN",
         payload:{
             isSignIn: true,
+            role: uesrState.role,
             uid: uesrState.uid,
             username: uesrState.username
         }
