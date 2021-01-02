@@ -5,6 +5,8 @@ import {
     PrimaryButton
 } from '../components/UIkit/index'
 import {signUp} from '../reducks/users/operations'
+import {push} from 'connected-react-router'
+
 
 const SignUp = ()=>{
     const dispatch = useDispatch()
@@ -53,6 +55,8 @@ const SignUp = ()=>{
                     label="アカウントを登録する" 
                     onClick={()=> dispatch(signUp(username,email,password,confirmPassword))}    
                 />
+                <div className="module-spacer--medium" />
+                <p style={{cursor:'pointer'}} onClick={()=> dispatch(push('/signin'))}>アカウント既にお持ちの方はこちら</p>
             </div>
         </div>
     )
