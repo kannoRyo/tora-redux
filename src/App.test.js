@@ -1,8 +1,13 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+export const SIGN_OUT = "SIGNOUT"
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+export const signOutAction = ()=>{
+  return{
+    type: SIGN_OUT,
+    payload:{
+      isSignIn:false,
+      uid:'',
+      username:''
+    }
+  }
+}
+
