@@ -1,16 +1,20 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import {getUserId} from '../reducks/users/selectors'
+import {
+    getUserId,
+    getUserUsername
+} from '../reducks/users/selectors'
 
 const Home = ()=>{
     const selectors = useSelector(state => state)
     const uid = getUserId(selectors)
-    console.log(selectors.users)
+    const username = getUserUsername(selectors)
 
     return(
         <div>
             <h2>ホーム</h2>
-            <p>{uid}</p>
+            <p>ユーザーID:{uid}</p>
+            <p>ユーザーネーム:{username}</p>
         </div>
 
     )
