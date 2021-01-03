@@ -5,6 +5,7 @@ import {
     SelectBox,
     PrimaryButton
 } from '../components/UIkit/index'
+import {ImageArea} from '../components/Products/index'
 import {saveProduct} from '../reducks/products/operations'
 
 const ProductEdit = ()=>{
@@ -15,6 +16,7 @@ const ProductEdit = ()=>{
     const [category, setCategory] = useState('')
     const [gender, setGender] = useState('')
     const [price, setPrice] = useState('')
+    const [images, setImages] = useState([])
 
     const inputName = useCallback((e)=>{
         setName(e.target.value)
@@ -44,6 +46,7 @@ const ProductEdit = ()=>{
         <section>
             <h2 className="u-text__headline u-text-center">商品の登録・編集</h2>
             <div className="c-section-container">
+                <ImageArea images={images} setImages={setImages}/>
                 <TextInput
                     fullWidth={true} label={"商品名"} multiline={false} rows={1}
                     required={true} type={"text"} value={name} onChange={inputName}
@@ -66,7 +69,7 @@ const ProductEdit = ()=>{
                 <div className="center">
                 <PrimaryButton
                     label="商品状態を保存"
-                    onClick={()=> dispatch(saveProduct(name,description,category,gender,price))}
+                    onClick={()=> dispatch(saveProduct(name,description,category,gender,price,images))}
                 />
                 </div>
             </div>
