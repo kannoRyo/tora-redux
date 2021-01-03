@@ -39,6 +39,7 @@ export const resetPassword = (email)=>{
                 .then(()=>{
                     alert('入力されたメールアドレスにパスワードリセット用のメールをお送りしました。')
                     dispatch(pish('/'))
+                    
                 })
         }
     }
