@@ -2,31 +2,35 @@ import { makeStyles } from '@material-ui/core'
 import React,{useState, useCallback, useEffect} from 'react' 
 import { useSelector } from 'react-redux'
 import {db} from '../firebase/index'
-import {HTMLReactParser} from 'html-react-parser'
+import HTMLReactParser from 'html-react-parser'
+import {ImageSwiper, SizeTable} from '../components/Products/index'
 
 const useStyle  = makeStyles((theme)=>({
     sliderBox:{
         [theme.breakpoints.down('sm')]:{
             margin: '0 auto 24px auto',
+            width: 320,
             height: 320,
-            height: 320
         },
         [theme.breakpoints.up('sm')]:{
             margin: '0 auto',
-            height: 400,
+            width: 400,
             height: 400           
         }
     },
     detail:{
+        textAlign:{
+            textAlign:'left'
+        },
         [theme.breakpoints.down('sm')]:{
             margin: '0 auto 16px auto',
             height: 'auto',
-            height: 320
+            width: 320
         },
         [theme.breakpoints.up('sm')]:{
             margin: '0 auto',
             height: 'auto',
-            height: 400           
+            width: 400           
         }
     },
     price:{
@@ -44,6 +48,7 @@ const returnCodeToBr = (text)=>{
 }
 
 const ProductDetail = (props)=>{
+    const classes = useStyle()
     const selector = useSelector((state) => state)
     const path = selector.router.location.pathname 
     const id = path.split('/product/')[1]
@@ -64,10 +69,13 @@ const ProductDetail = (props)=>{
                 product && (
                     <div className="p-grid__row">
                         <div className={classes.sliderBox}>
+                            <ImageSwiper images={product.images}/> 
                         </div>
                         <div className={classes.detail}>
                             <h2 className="u-text__headline">{product.name}</h2>
                             <p className={classes.price}>{product.price.toLocaleString()}</p>
+                            <div className="module-space--small" />
+                            <SizeTable sizes={product.sizes}/>
                             <div className="module-space--small" />
                             <p>{returnCodeToBr(product.description)}</p>
                         </div>
