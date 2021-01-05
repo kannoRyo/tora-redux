@@ -1,6 +1,9 @@
 import React from 'react'
 import {Route, Switch} from 'react-router'
-import {SignIn, ProductList, SignUp,ProductEdit, Reset } from './templates/index'
+<<<<<<< HEAD
+=======
+import {SignIn, Home, SignUp,ProductEdit,ProductDetail, ProductList,Reset } from './templates/index'
+>>>>>>> @{-1}
 import Auth from './Auth'
 
 
@@ -13,7 +16,11 @@ const Router = () =>{
             <Route exact path="/reset" component={Reset} />
 
             <Auth>
+<<<<<<< HEAD
                 <Route exact path="(/)?" component={ProductList} />
+=======
+                <Route exact path="/product/:id?" component={ProductDetail} />
+>>>>>>> @{-1}
                 <Route path="/product/edit(/:id)?" component={ProductEdit} />
             </Auth>
         </Switch>
