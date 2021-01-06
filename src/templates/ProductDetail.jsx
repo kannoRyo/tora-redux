@@ -1,9 +1,10 @@
 import { makeStyles } from '@material-ui/core'
 import React,{useState, useCallback, useEffect} from 'react' 
-import { useSelector } from 'react-redux'
-import {db} from '../firebase/index'
+import { useDispatch, useSelector } from 'react-redux'
+import {db, FirebaseTimestamp} from '../firebase/index'
 import HTMLReactParser from 'html-react-parser'
 import {ImageSwiper, SizeTable} from '../components/Products/index'
+import {addProductToCart} from '../reducks/users/operations'
 
 const useStyle  = makeStyles((theme)=>({
     sliderBox:{
@@ -39,6 +40,7 @@ const useStyle  = makeStyles((theme)=>({
 
 }))  
 
+
 const returnCodeToBr = (text)=>{
     if(text === ''){
         return text
@@ -48,12 +50,28 @@ const returnCodeToBr = (text)=>{
 }
 
 const ProductDetail = (props)=>{
+    const dispatch = useDispatch()
     const classes = useStyle()
     const selector = useSelector((state) => state)
     const path = selector.router.location.pathname 
     const id = path.split('/product/')[1]
-
+    
     const [product ,setProduct] = useState(null)
+    
+    const addProduct = useCallback((selectedSize)=>{
+        const timestamp = FirebaseTimestamp.now()
+        dispatch(addProductToCart({
+            added_at: timestamp,
+            description: product.description,
+            gender: product.gender,
+            images: product.images,
+            name: product.name,
+            price: product.price,
+            productId: product.id,
+            quantity: 1,
+            size: selectedSize
+        }))
+    },[product])
 
     useEffect(()=>{
         db.collection('products').doc(id).get()
@@ -75,7 +93,7 @@ const ProductDetail = (props)=>{
                             <h2 className="u-text__headline">{product.name}</h2>
                             <p className={classes.price}>{product.price.toLocaleString()}</p>
                             <div className="module-space--small" />
-                            <SizeTable sizes={product.sizes}/>
+                            <SizeTable addProduct={addProduct} sizes={product.sizes}/>
                             <div className="module-space--small" />
                             <p>{returnCodeToBr(product.description)}</p>
                         </div>

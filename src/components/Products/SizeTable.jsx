@@ -31,7 +31,7 @@ const SizeTable = (props) =>{
                                     残り{item.quantity}点
                                 </TableCell>
                                 <TableCell className={classes.iconCell}>
-                                    <IconButton>
+                                    <IconButton onClick={()=>props.addProduct(item.size)}>
                                         <ShoppingCartIcon/>
                                     </IconButton>
                                 </TableCell>

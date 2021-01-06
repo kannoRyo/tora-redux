@@ -13,9 +13,9 @@ import PersonIcon from '@material-ui/icons/Person'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import {makeStyles} from '@material-ui/core'
 import {TextInput} from '../UIkit/index'
-import {theme} from '../../assets/theme'
 import { useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
+import {signOut} from '../../reducks/users/operations'
 
 const useStyles = makeStyles((theme)=>({
     drawer:{
@@ -67,7 +67,10 @@ const ClosableDrawer = (props)=>{
                 classes={{paper: classes.drawerPaper}}
                 ModalProps={{keepMounted: true}}
             >
-                <div>
+                <div
+                    onClose={(e)=>props.onClose(props.open)}
+                    onKeyDown={(e)=>props.onClose(props.open)}
+                >
                     <div className={classes.searchField}>
                         <TextInput
                             fullWidth={false} label="キーワードを入力" multiline={false} rows={1}
@@ -90,7 +93,7 @@ const ClosableDrawer = (props)=>{
                             </ListItem>
                         ))
                     }
-                    <ListItem button key="logout">
+                    <ListItem button key="logout" onClick={()=>dispatch(signOut())}>
                         <ListItemIcon>
                             <ExitToAppIcon />
                         </ListItemIcon>
