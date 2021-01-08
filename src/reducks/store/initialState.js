@@ -3,6 +3,7 @@ export const initialState = {
         list: []
     },
     users:{
+        orders: [],
         cart: [],
         isSignedIn: false,
         role: '',
