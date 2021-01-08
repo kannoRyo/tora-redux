@@ -19,12 +19,14 @@ const SelectBox = (props)=>{
         <FormControl className={classes.formControl}>
             <InputLabel>{props.label}</InputLabel>
             <Select
-                required={props.required} value={props.value}
-                onChange={(e)=> props.select(e.target.value)}
+                value={props.value} required={props.required}
+                onChange={(e) => props.select(e.target.value)}
             >
-                {props.options.map((option)  =>{
-                    return <MenuItem key={option.id} value={option.id}>{option.name}</MenuItem>
-                })}
+                {props.options !== '' && (
+                    props.options.map((value) => (
+                     <MenuItem key={value.id} value={value.id}>{value.name}</MenuItem>
+                ))
+                )}
             </Select>
         </FormControl>
     )

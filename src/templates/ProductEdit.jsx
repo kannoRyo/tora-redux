@@ -26,6 +26,7 @@ const ProductEdit = ()=>{
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [category, setCategory] = useState('')
+    const [categories, setCategories] = useState('')
     const [gender, setGender] = useState('')
     const [price, setPrice] = useState('')
     const [images, setImages] = useState([])
@@ -43,11 +44,7 @@ const ProductEdit = ()=>{
         setPrice(e.target.value)
     },[setPrice])
 
-    const categories =[
-        {id: "tops" , name: "トップス"},
-        {id: "shirts" , name: "シャツ"},
-        {id: "pants" , name: "パンツ"},
-    ]
+    
 
     const genders =[
         {id: "male" , name: "男性"},
@@ -72,6 +69,17 @@ const ProductEdit = ()=>{
         }
     },[])
 
+    useEffect(() => {
+        db.collection('categories').orderBy("order", "asc").get().then(snapshots => {
+            const list = []
+            snapshots.forEach(snapshot => {
+                list.push(snapshot.data())
+            })
+            setCategories(list)
+        });
+    },[])
+
+
     return(
         <section>
             <h2 className="u-text__headline u-text-center">商品の登録・編集</h2>
@@ -85,11 +93,11 @@ const ProductEdit = ()=>{
                     fullWidth={true} label={"商品説明"} multiline={true} rows={5}
                     required={true} type={"text"} value={description} onChange={inputDescription}
                 />
-                <SelectBox
-                    label={"カテゴリー"} required={true} options={categories} value={category} select={setCategory}
+                 <SelectBox
+                    label={"カテゴリー"} options={categories} required={true} select={setCategory} value={category}
                 />
                 <SelectBox
-                    label={"性別"} required={true} options={genders} value={gender} select={setGender}
+                    label={"性別"} options={genders} required={true} select={setGender} value={gender}
                 />
                 <TextInput
                     fullWidth={true} label={"価格"} multiline={false} rows={1}
