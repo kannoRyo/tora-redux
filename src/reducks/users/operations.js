@@ -34,28 +34,33 @@ export const fetchOrdersHistory = ()=>{
                 })
                 dispatch(fetchOrdersHistoryAction(list))
             })
+        }
     }
-}
-
-export const fetchProductsInCart = (products)=>{
-    return async (dispatch)=>{
-        dispatch(fetchProductsInCartAction(products))
+    
+    export const fetchProductsInCart = (products)=>{
+        return async (dispatch)=>{
+            dispatch(fetchProductsInCartAction(products))
+        }
     }
-}
-
-export const listenAuthState = ()=>{
-    return async (dispatch)=>{
-        return auth.onAuthStateChanged((user)=>{
-            if(user){
-                const uid = user.uid
-                db.collection('users').doc(uid).get()
-                   .then((snapshot)=>{
-                       const data = snapshot.data()
-                       dispatch(signInAction({
+    
+    export const listenAuthState = ()=>{
+        return async (dispatch)=>{
+            return auth.onAuthStateChanged((user)=>{
+                if(user){
+                    const uid = user.uid
+                    console.log(uid)
+                    db.collection('users').doc(uid).get()
+                    .then((snapshot)=>{
+                        const data = snapshot.data()
+                        console.log(data)
+                        dispatch(signInAction({
                            isSignedIn: true,
                            role: data.role,
                            uid: uid,
-                           username: data.username
+                           email: data.email,
+                           username: data.username,
+                           customer_Id: (data.customer_Id ? data.customer_Id : ""),
+                           payment_method_Id: (data.payment_method_Id ? data.payment_method_Id : "" )
                        }))
                    })     
             } else{
@@ -104,7 +109,10 @@ export const signIn = (email,password) =>{
                                 isSignedIn: true,
                                 role: data.role,
                                 uid: uid,
-                                username: data.username
+                                email: data.email,
+                                username: data.username,
+                                customer_Id: (data.customer_Id ? data.customer_Id : ""),
+                                payment_method_Id: (data.payment_method_Id ? data.payment_method_Id : "" )
                             }))
 
                             dispatch(push('/'))

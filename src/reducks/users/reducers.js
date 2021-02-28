@@ -19,11 +19,16 @@ export const UserReducers = (state = initialState.users, action)=>{
                 ...state,
                 ...action.payload
             }
-        case Actions.SIGN_OUT:
-            return {
+            case Actions.SIGN_OUT:
+                return {
+                    ...action.payload
+                }
+        case Actions.UPDATE_USER_ACTION:
+            return{
+                ...state,
                 ...action.payload
             }
-        default:
-            return state
-    }
+                default:
+                    return state
+                }
 }

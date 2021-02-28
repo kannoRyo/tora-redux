@@ -4,7 +4,10 @@ export const initialState = {
     },
     users:{
         orders: [],
+        customer_Id: '',
+        payment_method_Id: '',
         cart: [],
+        email: [],
         isSignedIn: false,
         role: '',
         uid: "",
